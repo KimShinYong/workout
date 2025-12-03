@@ -1,28 +1,19 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
+// src/App.jsx
+import { Routes, Route } from "react-router-dom";
+import RootLayout from "./pages/Root";
+import WorkoutPage from "./pages/Workout";
+import LogPage from "./pages/Log";
+import NotFoundPage from "./pages/NotFound";
 
-const Router = createBrowserRouter([
-  {
-    path: "/",
-    element: <WorkOut />,
-    errorElement: <NotFound />,
-    children: [
-      { index: true, element: <Home /> },
-      { path: "log", element: <Log /> },
-    ],
-  },
-  {
-    path: "log",
-    element: <Log />,
-  },
-]);
-
-function App() {
+export default function App() {
   return (
-    <>
-      <RouterProvider router={Router}></RouterProvider>
-    </>
+    <Routes>
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={<WorkoutPage />} />
+        <Route path="workout" element={<WorkoutPage />} />
+        <Route path="log" element={<LogPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   );
 }
-
-export default App;
